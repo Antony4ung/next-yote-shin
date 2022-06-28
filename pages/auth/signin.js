@@ -142,7 +142,7 @@ export default function Signin({ }) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const providers = await getProviders(context);
+  // const providers = await getProviders(context);
 
   if (session) {
     return {
@@ -154,7 +154,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { providers: providers, session: session },
+    props: { session: session },
   };
 }
 
