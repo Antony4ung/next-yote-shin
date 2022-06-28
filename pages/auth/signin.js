@@ -10,15 +10,8 @@ import { toast } from "react-toastify";
 import logo from '../../public/logo.png'
 import Image from "next/image";
 
-export default function Signin({ }) {
+export default function Signin({ providers }) {
   const { data: session } = useSession();
-
-  const [providers,setProviders] = useState(null)
-
-  const getProvidersFun = async () =>{
-    const provider = await getProviders()
-    setProviders(provider)
-  }
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +19,6 @@ export default function Signin({ }) {
   const router = useRouter();
 
   useEffect(() => {
-    getProvidersFun()
     if (session) {
       router.push("/");
     }
@@ -123,18 +115,18 @@ export default function Signin({ }) {
           </h4>
         </Box>
 
-        {providers && <LoginBtn
+        <LoginBtn
           name={providers?.google.name}
           fun={providers?.google.id}
           color="error"
           icon={<GoogleIcon sx={{ ml: 2 }} />}
-        />}
-        {providers && <LoginBtn
+        />
+        <LoginBtn
           name={providers?.github.name}
           fun={providers?.github.id}
           color="warning"
           icon={<GitHubIcon sx={{ ml: 2 }} />}
-        />}
+        />
       </Box>
     </Box>
   );
@@ -142,7 +134,7 @@ export default function Signin({ }) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  // const providers = await getProviders(context);
+  const providers = await getProviders(context);
 
   if (session) {
     return {
@@ -154,7 +146,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { session: session },
+    props: { providers: providers, session: session },
   };
 }
 
