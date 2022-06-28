@@ -116,14 +116,14 @@ export default function Signin({ providers }) {
         </Box>
 
         <LoginBtn
-          name={providers.google.name}
-          fun={providers.google.id}
+          name={providers?.google.name}
+          fun={providers?.google.id}
           color="error"
           icon={<GoogleIcon sx={{ ml: 2 }} />}
         />
         <LoginBtn
-          name={providers.github.name}
-          fun={providers.github.id}
+          name={providers?.github.name}
+          fun={providers?.github.id}
           color="warning"
           icon={<GitHubIcon sx={{ ml: 2 }} />}
         />
@@ -146,7 +146,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { providers: providers, session: session },
+    props: { providers: providers },
   };
 }
 
