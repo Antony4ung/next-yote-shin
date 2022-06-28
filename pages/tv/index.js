@@ -2,61 +2,59 @@ import { Box, CircularProgress } from "@mui/material";
 import { getSession } from "next-auth/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Banner from "../components/Banner";
-import ModalCom from "../components/Modal";
-import VideoRow from "../components/Row";
-// import { AppContext } from "../context/ContextProvider";
+import Banner from "../../components/Banner";
+import ModalCom from "../../components/Modal";
+import VideoRow from "../../components/Row";
 import {
-  getOriginals,
-  getPopularData,
-  getTopRated,
-  getActionMovies,
-  getComedyMovies,
-  getHorrorMovies,
-  getRomanceMovies,
-  getDocumentaries,
-} from "../redux/actions/videoAction";
+  getPopularTv,
+  getOriginalsTv,
+  getTopRatedTv,
+  getActionTv,
+  getComedyTv,
+  getHorrorTv,
+  getRomanceTv,
+  getDocumentariesTv,
+} from "../../redux/actions/videoAction";
 
 export default function Component() {
-  // const {modalOpen,params} = useContext(AppContext)
 
   const dispatch = useDispatch();
 
   const originalData = useSelector(
-    (state) => state.originalsReducer.original?.results
+    (state) => state.originalsTvReducer.original?.results
   );
-
   const trendingData = useSelector(
-    (state) => state.trendingVideoReducer.trending?.results
+    (state) => state.trendingTvReducer.trending?.results
   );
   const topRatedData = useSelector(
-    (state) => state.topRatedReducer.topRated?.results
+    (state) => state.topRatedTvReducer.topRated?.results
   );
   const actionVideoData = useSelector(
-    (state) => state.actionVideoReducer.action?.results
+    (state) => state.actionTvReducer.action?.results
   );
   const comedyData = useSelector(
-    (state) => state.comedyReducer.comedy?.results
+    (state) => state.comedyTvReducer.comedy?.results
   );
   const horrorData = useSelector(
-    (state) => state.horrorReducer.horror?.results
+    (state) => state.horrorTvReducer.horror?.results
   );
   const romanceData = useSelector(
-    (state) => state.romanceReducer.romance?.results
+    (state) => state.romanceTvReducer.romance?.results
   );
   const documentaryData = useSelector(
-    (state) => state.documentaryReducer.documentary?.results
+    (state) => state.documentaryTvReducer.documentary?.results
   );
 
+
   useEffect(() => {
-    dispatch(getPopularData(1));
-    dispatch(getOriginals(1));
-    dispatch(getTopRated(1));
-    dispatch(getActionMovies(1));
-    dispatch(getComedyMovies(1));
-    dispatch(getHorrorMovies(1));
-    dispatch(getRomanceMovies(1));
-    dispatch(getDocumentaries(1));
+    dispatch(getPopularTv(1));
+    dispatch(getOriginalsTv(1));
+    dispatch(getTopRatedTv(1));
+    dispatch(getActionTv(1));
+    dispatch(getComedyTv(1));
+    dispatch(getHorrorTv(1));
+    dispatch(getRomanceTv(1));
+    dispatch(getDocumentariesTv(1));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -65,7 +63,7 @@ export default function Component() {
       
 
       {originalData ? (
-        <Banner type="movie" data={originalData} />
+        <Banner type="tv" isTv data={originalData} />
       ) : (
         <Box
           sx={{
@@ -82,7 +80,7 @@ export default function Component() {
       )}
 
       {trendingData ? (
-        <VideoRow title="Trendings" type="movie" data={trendingData} />
+        <VideoRow title="Trendings" type="tv" data={trendingData} />
       ) : (
         <Box
           sx={{
@@ -96,7 +94,7 @@ export default function Component() {
         </Box>
       )}
       {topRatedData ? (
-        <VideoRow title="Top rated" type="movie" data={topRatedData} />
+        <VideoRow title="Top rated" type="tv" data={topRatedData} />
       ) : (
         <Box
           sx={{
@@ -110,7 +108,7 @@ export default function Component() {
         </Box>
       )}
       {actionVideoData ? (
-        <VideoRow title="Action" type="movie" data={actionVideoData} />
+        <VideoRow title="Action" type="tv" data={actionVideoData} />
       ) : (
         <Box
           sx={{
@@ -124,7 +122,7 @@ export default function Component() {
         </Box>
       )}
       {comedyData ? (
-        <VideoRow title="Comedy" type="movie" data={comedyData} />
+        <VideoRow title="Comedy" type="tv" data={comedyData} />
       ) : (
         <Box
           sx={{
@@ -138,7 +136,7 @@ export default function Component() {
         </Box>
       )}
       {horrorData ? (
-        <VideoRow title="Horror" type="movie" data={horrorData} />
+        <VideoRow title="Horror" type="tv" data={horrorData} />
       ) : (
         <Box
           sx={{
@@ -152,7 +150,7 @@ export default function Component() {
         </Box>
       )}
       {romanceData ? (
-        <VideoRow title="Romance" type="movie" data={romanceData} />
+        <VideoRow title="Romance" type="tv" data={romanceData} />
       ) : (
         <Box
           sx={{
@@ -167,7 +165,7 @@ export default function Component() {
       )}
 
       {documentaryData ? (
-        <VideoRow title="Documentary" type="movie" data={documentaryData} />
+        <VideoRow title="Documentary" type="tv" data={documentaryData} />
       ) : (
         <Box
           sx={{

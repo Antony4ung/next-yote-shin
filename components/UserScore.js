@@ -1,0 +1,53 @@
+/* eslint-disable no-unused-vars */
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: 'relative', display: 'inline-flex'}}>
+      <CircularProgress thickness={2} size={50} variant="determinate" {...props} />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection:"column"
+        }}
+      >
+        <h5>
+          {props.value.toFixed(0)}%
+        </h5>
+      </Box>
+    </Box>
+  );
+}
+
+CircularProgressWithLabel.propTypes = {
+  /**
+   * The value of the progress indicator for the determinate variant.
+   * Value between 0 and 100.
+   * @default 0
+   */
+  value: PropTypes.number.isRequired,
+};
+
+export default function UserScoreProgress({score}) {
+//   const [progress, setProgress] = React.useState(score);
+
+
+  return (
+    <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",my:2}}>
+        <CircularProgressWithLabel value={score} />
+        <p>Users score</p>
+    </Box>
+  )
+
+}
