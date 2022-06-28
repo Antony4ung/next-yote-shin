@@ -33,7 +33,7 @@ export default function DrawerCom({ open, handleClose }) {
     },
     {
       id: 3,
-      navi: "/",
+      navi: "/search",
       icon: <SearchIcon />,
       text: "Search",
     },
