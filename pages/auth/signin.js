@@ -10,8 +10,15 @@ import { toast } from "react-toastify";
 import logo from '../../public/logo.png'
 import Image from "next/image";
 
-export default function Signin({ providers }) {
+export default function Signin({ }) {
   const { data: session } = useSession();
+
+  const [providers,setProviders] = useState(null)
+
+  const getProvidersFun = async () =>{
+    const provider = await getProviders()
+    setProviders(provider)
+  }
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +26,7 @@ export default function Signin({ providers }) {
   const router = useRouter();
 
   useEffect(() => {
+    getProvidersFun()
     if (session) {
       router.push("/");
     }
