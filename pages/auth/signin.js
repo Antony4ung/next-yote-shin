@@ -1,4 +1,4 @@
-import { getProviders, getSession, signIn, useSession } from "next-auth/react";
+import { getProviders, signIn, useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { Box, Button, TextField, useTheme } from "@mui/material";
 import LoginBtn from "../../components/LoginBtn";
@@ -10,8 +10,13 @@ import { toast } from "react-toastify";
 import logo from '../../public/logo.png'
 import Image from "next/image";
 
-export default function Signin({ providers }) {
+export default function Signin({ }) {
   const { data: session } = useSession();
+  
+  const providerGetting = async() =>{
+    const providers = await getProviders()
+    return providers
+  }
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,9 +24,11 @@ export default function Signin({ providers }) {
   const router = useRouter();
 
   useEffect(() => {
+    providerGetting()
     if (session) {
       router.push("/");
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -132,23 +139,23 @@ export default function Signin({ providers }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-  const providers = await getProviders(context);
+// export async function getServerSideProps(context) {
+//   const session = await getSession(context);
+//   const providers = await getProviders(context);
 
-  if (session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+//   if (session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: { providers: providers },
-  };
-}
+//   return {
+//     props: {},
+//   };
+// }
 
 Signin.getLayout = function (page) {
   return <>{page}</>;
