@@ -1,4 +1,4 @@
-import { getProviders, signIn, useSession } from "next-auth/react";
+import { getProviders, getSession, signIn, useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { Box, Button, TextField, useTheme } from "@mui/material";
 import LoginBtn from "../../components/LoginBtn";
@@ -10,13 +10,8 @@ import { toast } from "react-toastify";
 import logo from '../../public/logo.png'
 import Image from "next/image";
 
-export default function Signin({ }) {
+export default function Signin({ providers }) {
   const { data: session } = useSession();
-  
-  const providerGetting = async() =>{
-    const providers = await getProviders()
-    return providers
-  }
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,11 +19,9 @@ export default function Signin({ }) {
   const router = useRouter();
 
   useEffect(() => {
-    providerGetting()
     if (session) {
       router.push("/");
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -122,40 +115,40 @@ export default function Signin({ }) {
           </h4>
         </Box>
 
-        <LoginBtn
+        {providers && <LoginBtn
           name={providers?.google.name}
           fun={providers?.google.id}
           color="error"
           icon={<GoogleIcon sx={{ ml: 2 }} />}
-        />
-        <LoginBtn
+        />}
+        {providers && <LoginBtn
           name={providers?.github.name}
           fun={providers?.github.id}
           color="warning"
           icon={<GitHubIcon sx={{ ml: 2 }} />}
-        />
+        />}
       </Box>
     </Box>
   );
 }
 
-// export async function getServerSideProps(context) {
-//   const session = await getSession(context);
-//   const providers = await getProviders(context);
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  const providers = await getProviders(context);
 
-//   if (session) {
-//     return {
-//       redirect: {
-//         destination: "/",
-//         permanent: false,
-//       },
-//     };
-//   }
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
-//   return {
-//     props: {},
-//   };
-// }
+  return {
+    props: { providers: providers, session: session },
+  };
+}
 
 Signin.getLayout = function (page) {
   return <>{page}</>;
