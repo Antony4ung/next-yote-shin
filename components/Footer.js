@@ -4,7 +4,7 @@ import React from 'react'
 export default function Footer() {
   return (
     <Box sx={{width:"100vw",height:"100px",display:"flex",justifyContent:"center",alignItems:"center"}}>
-        <h4>Designed and developed by Aung Myat Thu</h4>
+        <span>Designed and developed by Aung Myat Thu</span>
     </Box>
   )
 }

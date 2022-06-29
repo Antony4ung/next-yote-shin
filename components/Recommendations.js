@@ -59,7 +59,7 @@ export default function Recommendations({setDetailData,id,type }) {
 
   return (
     <Container sx={{ py: 3 }}>
-      <h3 style={{ margin: "15px 0" }}>Recommendations </h3>
+      {recommendations && <h3 style={{ margin: "15px 0" }}>Recommendations </h3>}
       <AliceCarousel
         mouseTracking
         infinite
