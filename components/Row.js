@@ -60,7 +60,7 @@ export default function VideoRow({ title, type, data, isLargeRow }) {
       </Box>
       <Box ref={rowRef} className="row_posters">
         {data?.map((post) => (
-          <Tooltip placement="top" key={post.id} title={post.title}>
+          <Tooltip placement="top" key={post.id} title={post.title || post.original_title ||post.original_name }>
             <img
               onClick={() => handleMovieClick(post.id)}
               className={`row_poster ${isLargeRow && "row_posterLarge"}`}
