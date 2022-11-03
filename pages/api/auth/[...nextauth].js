@@ -47,8 +47,8 @@ export default NextAuth({
       },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: '956952501459-5qp5cohf5h6qb95ka8dinc415b5he5ic.apps.googleusercontent.com',
+      clientSecret: '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',
     }),
     GitHubProvider({
       clientId: "615341332ba807835e62",
